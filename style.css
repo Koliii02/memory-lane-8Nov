@@ -1,0 +1,1562 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(160deg, #12062e, #3a0f63 50%, #7a1a5a);
+  font-family: Georgia, serif;
+  color: #ffffff;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+h1 {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 28px;
+}
+
+button {
+  padding: 14px 36px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 30px;
+  background: #ffd23f;
+  color: #3a2a4d;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(255, 210, 63, 0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: scale(1.08);
+}
+
+.quiz-option {
+  display: block;
+  width: 260px;
+  margin: 8px 0;
+}
+
+#feedback {
+  margin-top: 18px;
+  max-width: 300px;
+  font-size: 1.05rem;
+}
+
+#nextBtn {
+  margin-top: 16px;
+}
+
+#options button {
+  display: block;
+  width: 260px;
+  margin: 8px 0;
+}
+
+.lights {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  border-top: 2px solid rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.bulb {
+  --drop: 16px;
+  position: relative;
+  width: 12px;
+  height: 18px;
+  margin-top: var(--drop);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: twinkle 1.5s infinite alternate;
+}
+
+.bulb:nth-child(even) {
+  --drop: 30px;
+}
+
+.bulb::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(var(--drop) * -1);
+  width: 2px;
+  height: var(--drop);
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateX(-50%);
+}
+
+@keyframes twinkle {
+  from { opacity: 0.35; }
+  to   { opacity: 1; }
+}
+
+.diwali-line {
+  color: #ffd23f;
+  font-size: 1.3rem;
+  margin-bottom: 14px;
+  text-shadow: 0 0 12px rgba(255, 210, 63, 0.8);
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 6px rgba(255, 210, 63, 0.4); }
+  to   { text-shadow: 0 0 18px rgba(255, 210, 63, 1); }
+}
+
+/* ---------- Final screen: the paper letter ---------- */
+
+#finalScreen {
+  width: 100%;
+  max-width: 600px;
+  padding: 70px 12px 40px;
+}
+
+#finalScreen h1 {
+  display: none;
+}
+
+#letter {
+  width: 100%;
+  text-align: left;
+  padding: 36px 30px 28px;
+  background-color: #fdf5e1;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    rgba(120, 90, 60, 0.16) 32px
+  );
+  border-radius: 4px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+}
+
+#letter p {
+  font-family: "Caveat", "Segoe Script", cursive;
+  font-size: 1.45rem;
+  line-height: 32px;
+  color: #3b2a20;
+  margin-bottom: 32px;
+  white-space: pre-line;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 1.2s, transform 1.2s;
+}
+
+#letter p.show {
+  opacity: 1;
+  transform: none;
+}
+
+#letter p:first-child {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+#letter p:last-of-type {
+  text-align: right;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+.rise { animation: rise 0.6s ease; }
+
+#options button.rise { animation: rise 0.5s ease backwards; }
+#options button.rise:nth-child(2) { animation-delay: 0.1s; }
+#options button.rise:nth-child(3) { animation-delay: 0.2s; }
+#options button.rise:nth-child(4) { animation-delay: 0.3s; }
+
+#options button.pop   { animation: pop 0.4s; }
+
+#options button.correct { background: #8be28b; }
+#options button.shake { animation: shake 0.4s; }
+
+/* ---------- Envelope ---------- */
+.envelope {
+  position: relative;
+  width: 280px;
+  height: 190px;
+  margin: 30px auto 10px;
+  cursor: pointer;
+  perspective: 800px;
+  animation: floaty 2.5s ease-in-out infinite;
+}
+
+.envelope.open {
+  animation: none;
+}
+
+.env-back,
+.env-front,
+.env-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.env-back {
+  background: #e3bf7f;
+  border-radius: 6px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.env-front {
+  background: #f3dca8;
+  clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+  border-radius: 6px;
+  z-index: 2;
+}
+
+.env-flap {
+  background: #ecd196;
+  clip-path: polygon(0 0, 100% 0, 50% 55%);
+  transform-origin: top;
+  transition: transform 0.7s ease, z-index 0s 0.35s;
+  z-index: 3;
+}
+
+.envelope.open .env-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.env-seal {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #e0524f, #9c1c1c);
+  color: #ffd9d9;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  z-index: 4;
+  transition: opacity 0.3s;
+}
+
+.envelope.open .env-seal {
+  opacity: 0;
+}
+
+#tapHint {
+  color: #ffd23f;
+  margin-top: 18px;
+  animation: glow 2s infinite alternate;
+}
+
+.slide-up {
+  animation: slideUp 0.9s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+.floater { 
+  position: fixed;
+  bottom: -40px;
+  z-index: 6;
+  opacity: 0;
+  pointer-events: none;
+  animation: floatUp 9s linear forwards;
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  15%  { opacity: 0.9; }
+  100% { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
+}
+.progress {
+  width: 260px;
+  margin-bottom: 22px;
+}
+
+#progressText {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: #ffd23f;
+}
+
+.bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#barFill {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #ffd23f, #ff9f1c);
+  border-radius: 8px;
+  transition: width 0.5s ease;
+}
+
+/* ---------- Glow-up: fonts ---------- */
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+h1, h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  text-shadow: 0 0 18px rgba(255, 210, 63, 0.35);
+}
+
+/* ---------- Glow-up: frosted glass cards ---------- */
+#startScreen,
+#questionScreen {
+  position: relative;
+  z-index: 6;
+  width: min(92vw, 440px);
+  padding: 34px 22px;
+  background: rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 26px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35), 0 0 30px rgba(255, 210, 63, 0.12);
+}
+
+/* ---------- Glow-up: glass answer buttons ---------- */
+#options button {
+  width: 100%;
+  max-width: 330px;
+  padding: 14px 18px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+#options button:hover {
+  background: rgba(255, 210, 63, 0.22);
+  border-color: #ffd23f;
+}
+
+#options button.pop {
+  background: #8be28b;
+  color: #1d3b1d;
+}
+
+/* ---------- Glow-up: smooth screen transitions ---------- */
+.screen {
+  animation: screenIn 0.7s ease;
+}
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+#options button.shake {
+  background: #ff5a6e;
+  border-color: #ff5a6e;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(255, 90, 110, 0.6);
+}
+/* ---------- Cinematic opening ---------- */
+#cinema {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: radial-gradient(circle at center, #1a0b3b 0%, #05020f 70%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  cursor: pointer;
+  transition: opacity 1s ease;
+}
+
+#cinema.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#cineLine {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.7rem;
+  color: #ffffff;
+  max-width: 420px;
+  margin: 0;
+  min-height: 3.4rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+#cineLine.show {
+  opacity: 1;
+  transform: none;
+}
+
+#diya {
+  font-size: 4rem;
+  margin-top: 30px;
+  opacity: 0.15;
+  filter: grayscale(1) brightness(0.6);
+  transition: opacity 1.2s, filter 1.2s;
+}
+
+#diya.lit {
+  opacity: 1;
+  animation: flame 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes flame {
+  from { filter: drop-shadow(0 0 8px rgba(255, 170, 50, 0.5)); }
+  to   { filter: drop-shadow(0 0 28px rgba(255, 210, 70, 1)); }
+}
+
+#skipHint {
+  position: absolute;
+  bottom: 24px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+}
+/* ---------- Colour boost ---------- */
+
+/* slowly shifting night-sky gradient */
+body {
+  background: linear-gradient(135deg, #1b0a4a, #6a1b9a, #e91e8c, #ff7a18, #6a1b9a, #1b0a4a);
+  background-size: 400% 400%;
+  animation: skyShift 22s ease infinite;
+}
+
+@keyframes skyShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* colourful glass cards */
+#startScreen,
+#questionScreen {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 190, 120, 0.45);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35),
+              0 0 36px rgba(255, 105, 180, 0.28),
+              0 0 60px rgba(255, 170, 50, 0.15);
+}
+
+/* gold-to-pink titles */
+h1, h2 {
+  background: linear-gradient(90deg, #ffe27a, #ff8fc8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+/* each answer button gets its own colour */
+#options button:nth-child(1) { background: rgba(255, 138, 101, 0.28); border-color: #ff8a65; }
+#options button:nth-child(2) { background: rgba(186, 104, 200, 0.28); border-color: #ba68c8; }
+#options button:nth-child(3) { background: rgba(77, 208, 225, 0.26);  border-color: #4dd0e1; }
+#options button:nth-child(4) { background: rgba(255, 213, 79, 0.26);  border-color: #ffd54f; }
+
+#options button:hover {
+  filter: brightness(1.35);
+}
+
+/* progress bar in rainbow */
+#barFill {
+  background: linear-gradient(90deg, #ff6f61, #ffd23f, #7df9a0, #4dd0e1, #ba68c8);
+}
+
+/* keep right and wrong colours on top of the new ones */
+#options button.pop {
+  background: #8be28b;
+  border-color: #8be28b;
+  color: #1d3b1d;
+  filter: none;
+}
+
+#options button.shake {
+  background: #ff5a6e;
+  border-color: #ff5a6e;
+  color: #ffffff;
+  filter: none;
+}
+
+/* ---------- Fix: cards that never disappear ---------- */
+#startScreen,
+#questionScreen {
+  background: rgba(22, 8, 52, 0.5);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border: 1px solid rgba(255, 190, 120, 0.5);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45),
+              0 0 36px rgba(255, 105, 180, 0.25);
+}
+
+/* ---------- Cinematic upgrade ---------- */
+#cineLine,
+#diya {
+  position: relative;
+  z-index: 2;
+}
+
+.cstar {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+  animation: cTwinkle 3s ease-in-out infinite;
+}
+
+@keyframes cTwinkle {
+  0%, 100% { opacity: 0.1; transform: scale(0.8); }
+  50%      { opacity: 0.95; transform: scale(1.4); }
+}
+
+.cshoot {
+  position: absolute;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), #ffffff);
+  opacity: 0;
+  pointer-events: none;
+  animation: cShoot 1.4s ease-in forwards;
+}
+
+@keyframes cShoot {
+  0%   { opacity: 1; transform: translate(0, 0) rotate(35deg); }
+  100% { opacity: 0; transform: translate(260px, 180px) rotate(35deg); }
+}
+
+/* warm glow when the diya lights */
+#cinema::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 60%, rgba(255, 150, 40, 0.45), transparent 60%);
+  opacity: 0;
+  transition: opacity 2s ease;
+  pointer-events: none;
+}
+
+#cinema.warm::before {
+  opacity: 1;
+}
+
+.ember {
+  position: absolute;
+  bottom: -10px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffb347;
+  box-shadow: 0 0 8px #ffb347;
+  opacity: 0;
+  pointer-events: none;
+  animation: emberUp 5s linear forwards;
+}
+
+@keyframes emberUp {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  15%  { opacity: 1; }
+  100% { transform: translate(30px, -70vh); opacity: 0; }
+}
+
+/* ---------- Night sky: celestial bodies ---------- */
+#cinema {
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(90, 50, 170, 0.45), transparent 55%),
+    radial-gradient(ellipse at 80% 85%, rgba(170, 45, 115, 0.35), transparent 55%),
+    linear-gradient(#05020f, #0b0624 60%, #1a0b3b);
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* faint Milky Way band */
+.milkyway {
+  position: absolute;
+  inset: -25%;
+  background: linear-gradient(115deg,
+    transparent 35%,
+    rgba(150, 120, 255, 0.18) 44%,
+    rgba(255, 150, 220, 0.16) 50%,
+    rgba(120, 200, 255, 0.14) 56%,
+    transparent 65%);
+  filter: blur(28px);
+  animation: mwDrift 40s ease-in-out infinite alternate;
+}
+
+@keyframes mwDrift {
+  from { transform: translateX(-4%) rotate(0deg); }
+  to   { transform: translateX(4%) rotate(3deg); }
+}
+
+/* the moon */
+.moon {
+  position: absolute;
+  top: 7%;
+  right: 8%;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fffbe6, #f1e6b8 55%, #cbbf8a);
+  box-shadow: 0 0 40px 10px rgba(255, 244, 200, 0.35),
+              0 0 120px 40px rgba(255, 244, 200, 0.14);
+  animation: moonGlow 6s ease-in-out infinite alternate;
+}
+
+.moon::before {
+  content: "";
+  position: absolute;
+  top: 24%;
+  left: 52%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(150, 140, 100, 0.35);
+  box-shadow: -34px 30px 0 3px rgba(150, 140, 100, 0.3),
+              -8px 48px 0 -2px rgba(150, 140, 100, 0.3);
+}
+
+@keyframes moonGlow {
+  from { box-shadow: 0 0 30px 6px rgba(255, 244, 200, 0.28), 0 0 90px 30px rgba(255, 244, 200, 0.1); }
+  to   { box-shadow: 0 0 50px 14px rgba(255, 244, 200, 0.42), 0 0 140px 50px rgba(255, 244, 200, 0.18); }
+}
+
+/* ringed planet */
+.planet {
+  position: absolute;
+  bottom: 13%;
+  left: 9%;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffb27a, #c8542d 70%, #6e2410);
+  box-shadow: 0 0 24px rgba(255, 150, 90, 0.35);
+}
+
+.planet::after {
+  content: "";
+  position: absolute;
+  top: 34%;
+  left: -38%;
+  width: 176%;
+  height: 32%;
+  border: 3px solid rgba(255, 220, 170, 0.6);
+  border-radius: 50%;
+  transform: rotate(-20deg);
+}
+
+/* constellation that draws itself */
+.constellation {
+  position: absolute;
+  top: 9%;
+  left: 6%;
+  width: min(38vw, 170px);
+}
+
+.constellation polyline {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.55);
+  stroke-width: 1;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: drawLine 6s ease 1.2s forwards;
+}
+
+.constellation circle {
+  fill: #ffffff;
+  opacity: 0;
+  animation: dotIn 0.8s ease forwards;
+}
+
+.constellation circle:nth-of-type(1) { animation-delay: 1.0s; }
+.constellation circle:nth-of-type(2) { animation-delay: 2.2s; }
+.constellation circle:nth-of-type(3) { animation-delay: 3.4s; }
+.constellation circle:nth-of-type(4) { animation-delay: 4.6s; }
+.constellation circle:nth-of-type(5) { animation-delay: 5.8s; }
+.constellation circle:nth-of-type(6) { animation-delay: 7.0s; }
+
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes dotIn {
+  from { opacity: 0; r: 0; }
+  to   { opacity: 1; r: 2.6; }
+}
+
+/* ---------- Calmer sky: crescent moon + Sirius ---------- */
+
+/* crescent moon */
+.moon {
+  top: 8%;
+  right: 9%;
+  width: 62px;
+  height: 62px;
+  background: transparent;
+  box-shadow: inset -16px 4px 0 0 #fff3c4;
+  filter: drop-shadow(0 0 14px rgba(255, 244, 200, 0.55));
+  animation: none;
+  transform: rotate(-20deg);
+}
+
+.moon::before {
+  display: none;
+}
+
+/* remove the planet and the old constellation */
+.planet,
+.constellation {
+  display: none;
+}
+
+/* Sirius */
+.sirius {
+  position: absolute;
+  top: 11%;
+  left: 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.sirius-star {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #eaf6ff;
+  box-shadow: 0 0 10px 3px rgba(190, 225, 255, 0.9),
+              0 0 36px 10px rgba(150, 200, 255, 0.45);
+  animation: siriusPulse 3s ease-in-out infinite alternate;
+}
+
+.sirius-star::before,
+.sirius-star::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sirius-star::before {
+  width: 54px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(210, 235, 255, 0.9), transparent);
+}
+
+.sirius-star::after {
+  width: 1px;
+  height: 54px;
+  background: linear-gradient(180deg, transparent, rgba(210, 235, 255, 0.9), transparent);
+}
+
+@keyframes siriusPulse {
+  from { opacity: 0.75; transform: scale(0.9); }
+  to   { opacity: 1;    transform: scale(1.15); }
+}
+
+.sirius-name {
+  margin-top: 20px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  animation: nameIn 2s ease 2.5s forwards;
+}
+
+@keyframes nameIn {
+  to { opacity: 1; }
+}
+
+/* ---------- Gemini replaces Sirius ---------- */
+.sirius {
+  display: none;
+}
+
+.gemini {
+  position: absolute;
+  top: 9%;
+  left: 6%;
+  width: min(40vw, 180px);
+  pointer-events: none;
+}
+
+.gemini polyline {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.55);
+  stroke-width: 1;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: gDraw 4s ease 1s forwards;
+}
+
+.gemini .gstar {
+  fill: #ffffff;
+  opacity: 0;
+  animation: gStarIn 1s ease forwards;
+}
+
+.gemini .gbig {
+  filter: drop-shadow(0 0 6px rgba(190, 225, 255, 0.95));
+  animation: gStarIn 1s ease forwards, gPulse 3s ease-in-out 3s infinite alternate;
+}
+
+.gemini .gname {
+  fill: rgba(255, 255, 255, 0.65);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 7px;
+  letter-spacing: 0.18em;
+  opacity: 0;
+  animation: gStarIn 2s ease 4s forwards;
+}
+
+@keyframes gDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes gStarIn {
+  to { opacity: 1; }
+}
+
+@keyframes gPulse {
+  from { opacity: 0.75; }
+  to   { opacity: 1; }
+}
+
+/* ---------- Slower, calmer intro ---------- */
+#cineLine {
+  transition: opacity 1.8s ease, transform 1.8s ease;
+}
+
+.gemini polyline {
+  animation-duration: 9s;
+}
+
+/* ---------- Cursive ink writing ---------- */
+#cineLine {
+  font-family: "Great Vibes", "Caveat", cursive;
+  font-size: 2.6rem;
+  line-height: 1.3;
+  min-height: 4.6rem;
+  max-width: 460px;
+  color: #fff1cf;
+  text-shadow: 0 0 14px rgba(255, 200, 120, 0.55);
+}
+
+.inkword {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.ink {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(6px) scale(1.15);
+  animation: inkIn 0.9s ease forwards;
+}
+
+@keyframes inkIn {
+  60%  { opacity: 1; filter: blur(1px); }
+  100% { opacity: 1; filter: blur(0); transform: none; }
+}
+
+/* ---------- Self-drawing star ---------- */
+.sketch-wrap {
+  margin-bottom: 4px;
+}
+
+.sketch-wrap svg {
+  overflow: visible;
+}
+
+.sketch-wrap path {
+  fill: rgba(255, 226, 150, 0);
+  stroke: #ffe27a;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 6px rgba(255, 220, 120, 0.8));
+  animation: starDraw 4s ease 0.5s forwards, starFill 2s ease 4.2s forwards;
+}
+
+@keyframes starDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes starFill {
+  to { fill: rgba(255, 226, 150, 0.35); }
+}
+
+/* ---------- Northern lights v2 (messy, dim) ---------- */
+.milkyway {
+  display: none;
+}
+
+.aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation: auroraIn 8s ease 1s forwards;
+}
+
+@keyframes auroraIn {
+  to { opacity: 0.5; }
+}
+
+.aurora span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(46px);
+  animation: auroraDrift 18s ease-in-out infinite alternate;
+}
+
+@keyframes auroraDrift {
+  from { transform: translate(-6%, -3%) rotate(var(--rot)) scale(0.9); opacity: 0.35; }
+  to   { transform: translate(7%, 4%) rotate(calc(var(--rot) * -0.6)) scale(1.12); opacity: 0.9; }
+}
+
+/* dark patch behind the text so it stays readable */
+#cinema::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(5, 2, 15, 0.6) 0%, rgba(5, 2, 15, 0.25) 45%, transparent 75%);
+}
+
+#cineLine {
+  text-shadow: 0 0 14px rgba(255, 200, 120, 0.55), 0 2px 12px rgba(0, 0, 0, 0.85);
+}
+
+/* ---------- Crackers ---------- */
+#skipHint {
+  z-index: 3;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+#crackerBtn {
+  position: relative;
+  z-index: 2;
+  margin-top: 34px;
+  padding: 16px 34px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.15rem;
+  color: #3a1d00;
+  background: linear-gradient(135deg, #ffe27a, #ff9f1c);
+  border-radius: 40px;
+  box-shadow: 0 0 24px rgba(255, 170, 50, 0.7);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 1.4s ease, transform 1.4s ease;
+}
+
+#crackerBtn.show {
+  opacity: 1;
+  transform: none;
+  animation: crackerPulse 1.8s ease-in-out 1.4s infinite alternate;
+}
+
+#crackerBtn.gone {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  animation: none;
+}
+
+@keyframes crackerPulse {
+  from { box-shadow: 0 0 14px rgba(255, 170, 50, 0.45); }
+  to   { box-shadow: 0 0 38px rgba(255, 200, 80, 0.95); }
+}
+
+#soundToggle {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.1rem;
+  color: #ffffff;
+  background: rgba(22, 8, 52, 0.7);
+  border: 1px solid rgba(255, 190, 120, 0.5);
+  border-radius: 50%;
+  box-shadow: none;
+}
+
+/* lighter sky while the crackers fire */
+@keyframes auroraOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+#cinema.cracking .aurora {
+  animation: auroraOut 1.2s ease forwards;
+}
+
+#cinema.cracking .aurora span,
+#cinema.cracking .cstar {
+  animation-play-state: paused;
+}
+
+#cinema.cracking .cshoot,
+#cinema.cracking .ember {
+  display: none;
+}
+
+/* ---------- Tap to begin ---------- */
+#beginBtn {
+  position: relative;
+  z-index: 3;
+  margin-top: 34px;
+  padding: 16px 34px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.15rem;
+  color: #3a1d00;
+  background: linear-gradient(135deg, #ffe27a, #ff9f1c);
+  border-radius: 40px;
+  opacity: 0;
+  animation: beginIn 1.6s ease 0.6s forwards, beginPulse 1.8s ease-in-out 2.2s infinite alternate;
+}
+
+@keyframes beginIn {
+  to { opacity: 1; }
+}
+
+@keyframes beginPulse {
+  from { box-shadow: 0 0 14px rgba(255, 170, 50, 0.45); }
+  to   { box-shadow: 0 0 38px rgba(255, 200, 80, 0.95); }
+}
+
+#beginBtn.gone {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  animation: none;
+}
+
+/* ---------- Bridge sketch ---------- */
+.bridge-svg {
+  width: min(92vw, 440px);
+  height: auto;
+  overflow: visible;
+}
+
+.bridge-svg .dr {
+  fill: none;
+  stroke: #ffe27a;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 5px rgba(255, 220, 120, 0.7));
+  animation: bridgeDraw 2.6s ease var(--d, 0s) forwards;
+}
+
+@keyframes bridgeDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+.bridge-svg .sun {
+  fill: #ffcf5a;
+  opacity: 0;
+  filter: drop-shadow(0 0 14px rgba(255, 190, 80, 0.9));
+  animation: sunSet 10s ease 1s forwards;
+}
+
+@keyframes sunSet {
+  0%   { opacity: 0; transform: translateY(0); }
+  15%  { opacity: 1; }
+  100% { opacity: 1; transform: translateY(54px); fill: #ff7a3d; }
+}
+
+.bridge-svg .fig {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.bridge-svg .walkers {
+  opacity: 0;
+  animation: bridgeWalk 9s linear 4.6s forwards;
+}
+
+@keyframes bridgeWalk {
+  0%   { opacity: 0; transform: translateX(30px); }
+  8%   { opacity: 1; }
+  100% { opacity: 1; transform: translateX(250px); }
+}
+
+.bridge-svg .bob {
+  animation: bob 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes bob {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-1.6px); }
+}
+
+.bridge-caption {
+  margin: 14px 0 4px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.9rem;
+  color: #ffe27a;
+  opacity: 0;
+  animation: bridgeText 2s ease 7s forwards;
+}
+
+.bridge-sub {
+  margin: 0 0 22px;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+  opacity: 0;
+  animation: bridgeText 2s ease 8s forwards;
+}
+
+@keyframes bridgeText {
+  to { opacity: 1; }
+}
+
+#bridgeNext {
+  animation: rise 0.8s ease;
+}
+
+/* ---------- Serve game ---------- */
+#serveCanvas {
+  width: min(92vw, 400px);
+  height: auto;
+  margin: 8px 0 14px;
+  background: rgba(22, 8, 52, 0.55);
+  border: 1px solid rgba(255, 190, 120, 0.5);
+  border-radius: 18px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.4), 0 0 28px rgba(255, 105, 180, 0.2);
+  touch-action: manipulation;
+}
+
+#serveHint {
+  margin-bottom: 4px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+#serveMsg {
+  min-height: 1.6em;
+  margin-bottom: 16px;
+  font-size: 1.15rem;
+  color: #ffe27a;
+}
+
+#serveBtn,
+#serveNext {
+  margin-top: 4px;
+}
+
+/* ---------- Scratch vouchers ---------- */
+#moreBtn {
+  margin-top: 26px;
+  animation: rise 0.9s ease;
+}
+
+#voucherList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.voucher {
+  position: relative;
+  width: min(88vw, 360px);
+  height: 96px;
+  margin: 8px 0;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  color: #3a1d00;
+  background: linear-gradient(135deg, #fff3c4, #ffd98a);
+  border: 2px dashed rgba(120, 70, 0, 0.45);
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.v-icon {
+  font-size: 1.9rem;
+}
+
+.v-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 3px;
+}
+
+.v-text {
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.v-scratch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  touch-action: none;
+  cursor: crosshair;
+  transition: opacity 0.7s ease;
+}
+
+#voucherFoot {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #ffe27a;
+}
+
+/*------------- The ending ----------*/
+#endScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  background: radial-gradient(ellipse at center, #1a0b3b 0%, #05020f 85%);
+  animation: endIn 1.6s ease;
+}
+
+#endScreen:not(.hidden) {
+  display: flex;
+}
+
+@keyframes endIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#endline {
+  font-family: "Great Vibes", "Caveat", cursive;
+  font-size: 2.7rem;
+  line-height: 1.3;
+  color: #fff1cf;
+  text-shadow: 0 0 14px rgba(255, 200, 120, 0.55), 0 2px 12px rgba(0, 0, 0, 0.85);
+  max-width: 460px;
+  min-height: 4.2rem;
+  margin: 0 0 18px;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+#endline.show{
+  opacity: 1;
+}
+
+#endSub {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.12em;
+  color: #ffe27a;
+  margin: 0 0 24px;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+#endSub small {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+#endSub.show {
+  opacity: 1;
+}
+
+#replayBtn {
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  color: #ffffff;
+  background: rgba(22, 8, 52, 0.7);
+  border: 1px solid rgba(255, 190, 120, 0.5);
+  box-shadow: none;
+  animation: rise 0.8s ease;
+}
+
+#endBtn {
+  margin-top: 22px;
+  animation: rise 0.9s ease;
+}
+
+/* ---------- Bigger letter + cursive ending ---------- */
+#finalScreen {
+  max-width: 640px;
+}
+
+#letter {
+  padding: 40px 26px 30px 54px;
+  background-image:
+    radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 60%, rgba(150, 110, 60, 0.18) 100%),
+    repeating-linear-gradient(transparent, transparent 37px, rgba(120, 90, 60, 0.16) 38px);
+}
+
+#letter::before {
+  left: 38px;
+}
+
+#letter p {
+  font-size: 1.8rem;
+  line-height: 38px;
+  margin-bottom: 38px;
+}
+
+#letter p:first-child {
+  font-size: 2.2rem;
+}
+
+#endLine,
+#endLine .ink {
+  font-family: "Great Vibes", "Segoe Script", "Brush Script MT", cursive !important;
+}
+
+#endLine {
+  font-size: clamp(3rem, 11vw, 3.8rem);
+}
+
+/* ---------- Title emoji ---------- */
+.title-emoji {
+  font-size: 2.6rem;
+  line-height: 1;
+  margin-bottom: 6px;
+  animation: emojiBounce 1.6s ease-in-out infinite;
+}
+
+@keyframes emojiBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* ---------- Letter makeover ---------- */
+body {
+  overflow-x: hidden;
+}
+
+#letter {
+  padding: 46px 30px 34px 56px;
+  background-color: #fdf3dc;
+  background-image:
+    radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 55%, rgba(150, 110, 60, 0.2) 100%),
+    repeating-linear-gradient(transparent, transparent 37px, rgba(120, 90, 60, 0.16) 38px);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 9px #fdf3dc,
+    inset 0 0 0 10px rgba(180, 130, 70, 0.3),
+    0 14px 44px rgba(0, 0, 0, 0.5);
+}
+
+.l-tape {
+  position: absolute;
+  top: -12px;
+  width: 70px;
+  height: 24px;
+  background: repeating-linear-gradient(45deg,
+    rgba(255, 214, 150, 0.85), rgba(255, 214, 150, 0.85) 6px,
+    rgba(255, 236, 200, 0.85) 6px, rgba(255, 236, 200, 0.85) 12px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+.l-tape.a { left: -14px; transform: rotate(-35deg); }
+.l-tape.b { right: -14px; transform: rotate(35deg); }
+
+.l-stamp {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  width: 54px;
+  padding: 6px 4px 5px;
+  text-align: center;
+  background: #fffaf0;
+  border: 3px dotted rgba(190, 140, 80, 0.7);
+  color: #8a5a2b;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  transform: rotate(5deg);
+}
+
+.l-stamp b {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+
+.sticker {
+  position: absolute;
+  font-size: 2.2rem;
+  line-height: 1;
+  z-index: 3;
+  pointer-events: none;
+  filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff)
+          drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)
+          drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  transform: rotate(var(--tilt, 0deg));
+  animation: stickerPop 0.7s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+
+@keyframes stickerPop {
+  from { transform: scale(0) rotate(0deg); opacity: 0; }
+  to   { transform: scale(1) rotate(var(--tilt, 0deg)); opacity: 1; }
+}
+
+/* ---------- Win celebration ---------- */
+#smashPop {
+  position: fixed;
+  left: 50%;
+  top: 38%;
+  z-index: 300;
+  transform: translate(-50%, -50%) scale(0);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(3rem, 16vw, 6rem);
+  font-weight: 700;
+  color: #ffe27a;
+  text-shadow: 0 0 20px rgba(255, 170, 50, 0.9), 0 4px 0 #b4501d;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+#smashPop.go {
+  animation: smashIn 1.9s ease forwards;
+}
+
+@keyframes smashIn {
+  0%   { transform: translate(-50%, -50%) scale(0) rotate(-12deg); opacity: 0; }
+  20%  { transform: translate(-50%, -50%) scale(1.3) rotate(4deg); opacity: 1; }
+  35%  { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  80%  { opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0; }
+}
+
+.rain {
+  position: fixed;
+  top: -40px;
+  z-index: 250;
+  pointer-events: none;
+  animation: rainDown linear forwards;
+}
+
+@keyframes rainDown {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
+
+.shake-screen {
+  animation: screenShake 0.5s;
+}
+
+@keyframes screenShake {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-8px, 4px); }
+  40% { transform: translate(7px, -5px); }
+  60% { transform: translate(-6px, 3px); }
+  80% { transform: translate(5px, -2px); }
+}
+
+/* ---------- Stickers that stay on their paragraph ---------- */
+#letter {
+  position: relative;
+}
+
+#letter p {
+  position: relative;
+}
+
+.sticker {
+  top: auto;
+}

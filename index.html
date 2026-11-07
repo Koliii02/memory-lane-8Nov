@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday!</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Great+Vibes&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div id="cinema">
+    <p id="cineLine"></p>
+    <div id="diya">🪔</div>
+  </div>
+
+  <div id="startScreen" class="screen">
+    <h1>A Trip Down Memory Lane</h1>
+    <p class="diwali-line">Some stories only the two of us know 🪔</p>
+    <p>Answer a few questions, and each memory will unlock.</p>
+    <button id="startBtn">Begin the journey</button>
+  </div>
+
+  <div id="questionScreen" class="screen hidden">
+    <div class="progress">
+      <p id="progressText"></p>
+      <div class="bar"><div id="barFill"></div></div>
+    </div>
+    <h2 id="questionText"></h2>
+    <div id="options"></div>
+    <p id="feedback"></p>
+    <button id="nextBtn" class="hidden">Next</button>
+  </div>
+
+  <div id="serveGame" class="screen hidden">
+    <div class="title-emoji">🏐</div>
+    <h2>Your serve, remember?</h2>
+    <p id="serveHint">Send it over the net!</p>
+    <canvas id="serveCanvas" width="340" height="220"></canvas>
+    <p id="serveMsg"></p>
+    <button id="serveBtn">Serve 🏐</button>
+    <button id="serveNext" class="hidden">Continue</button>
+  </div>
+
+  <div id="voucherScreen" class="screen hidden">
+    <div class="title-emoji">🎁</div>
+    <h2>A few promises 🎁</h2>
+    <p id="voucherFoot">Scratch each one to reveal</p>
+    <div id="voucherList"></div>
+  </div>
+
+  <div id="endScreen" class="hidden">
+    <p id="endLine"></p>
+    <p id="endSub"></p>
+    <button id="replayBtn" class="hidden">Play again ↻</button>
+  </div>
+
+  <div id="bridgeScene" class="screen hidden">
+    <svg class="bridge-svg" viewBox="0 0 400 230" aria-hidden="true">
+      <circle class="sun" cx="305" cy="72" r="17"/>
+
+      <path class="dr" pathLength="1" style="--d:0.4s" d="M10 150 L390 150"/>
+      <path class="dr" pathLength="1" style="--d:1.2s" d="M50 150 Q200 52 350 150"/>
+      <path class="dr" pathLength="1" style="--d:2.2s" d="M10 130 L390 130"/>
+      <path class="dr" pathLength="1" style="--d:2.8s" d="M40 130V150M80 130V150M120 130V150M160 130V150M200 130V150M240 130V150M280 130V150M320 130V150M360 130V150"/>
+      <path class="dr" pathLength="1" style="--d:3.4s" d="M0 190 q25 -9 50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0"/>
+      <path class="dr" pathLength="1" style="--d:4s" d="M20 208 q25 -9 50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0"/>
+
+      <g class="walkers">
+        <g transform="translate(0 150)">
+          <g class="bob">
+            <circle class="fig" cx="0" cy="-27" r="5"/>
+            <path class="fig" d="M0 -22V-9M0 -19L-6 -12M0 -19L6 -12M0 -9L-4 0M0 -9L4 0"/>
+            <circle class="fig" cx="22" cy="-27" r="5"/>
+            <path class="fig" d="M22 -22V-9M22 -19L16 -12M22 -19L28 -12M22 -9L18 0M22 -9L26 0"/>
+          </g>
+        </g>
+      </g>
+    </svg>
+
+    <p class="bridge-caption">4 Nov 2024</p>
+    <p class="bridge-sub">the bridge, the walk, the silver coin</p>
+    <button id="bridgeNext" class="hidden">Continue 💌</button>
+  </div>
+
+  <div id="finalScreen" class="screen hidden">
+    <h1>Happy Birthday, Nikki! 🎉</h1>
+    <div id="sketchWrap" class="sketch-wrap">
+      <svg viewBox="0 0 100 100" width="90" height="90">
+      <path pathLength="1" d="M50 8 L61 38 L93 38 L67 57 L77 89 L50 70 L23 89 L33 57 L7 38 L39 38 Z"/>
+      </svg>
+    </div>
+    <div id="envelope" class="envelope">
+      <div class="env-back"></div>
+      <div class="env-flap"></div>
+      <div class="env-front"></div>
+      <div class="env-seal">♥</div>.
+    </div>
+    <p id="tapHint">Tap to open 💌</p>
+
+    <div id="letter" class="hidden"></div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.browser.min.js" onerror="this.onerror=null;this.src='canvas-confetti.min.js';"></script>
+<script src="script.js"></script>
+</body>
+</html>

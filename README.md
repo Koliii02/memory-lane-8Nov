@@ -1,1 +1,0 @@
-# memory-labe-8Nov
